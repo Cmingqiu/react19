@@ -9,11 +9,11 @@ importers:
   .:
     dependencies:
       react:
-        specifier: 19.0.0-rc-6f23540c7d-20240528
-        version: 19.0.0-rc-6f23540c7d-20240528
+        specifier: 19.0.0-rc-eb259b5d3b-20240605
+        version: 19.0.0-rc-eb259b5d3b-20240605
       react-dom:
-        specifier: 19.0.0-rc-6f23540c7d-20240528
-        version: 19.0.0-rc-6f23540c7d-20240528(react@19.0.0-rc-6f23540c7d-20240528)
+        specifier: 19.0.0-rc-eb259b5d3b-20240605
+        version: 19.0.0-rc-eb259b5d3b-20240605(react@19.0.0-rc-eb259b5d3b-20240605)
     devDependencies:
       '@vitejs/plugin-react':
         specifier: ^4.3.0
@@ -498,17 +498,17 @@ packages:
     resolution: {integrity: sha512-Wglpdk03BSfXkHoQa3b/oulrotAkwrlLDRSOb9D0bN86FdRyE9lppSp33aHNPgBa0JKCoB+drFLZkQoRRYae5A==}
     engines: {node: ^10 || ^12 || >=14}
 
-  react-dom@19.0.0-rc-6f23540c7d-20240528:
-    resolution: {integrity: sha512-TPZ7f0MYH/y51jHuPx0UdMH+WdZ7xX1UOcydOZWpjbjs2GXSgJFV2ilIm7FUSinHB6DSoGFVxhPqm1sa63IkbA==}
+  react-dom@19.0.0-rc-eb259b5d3b-20240605:
+    resolution: {integrity: sha512-KDnYQBjOsyBjUDb0obGL7K2H3rj/6qfKCtKS9biSyR6R+Rstl8nPBVPlyrbcA/96t8ZWavZkU2JfHFveo1cb5A==}
     peerDependencies:
-      react: 19.0.0-rc-6f23540c7d-20240528
+      react: 19.0.0-rc-eb259b5d3b-20240605
 
   react-refresh@0.14.2:
     resolution: {integrity: sha512-jCvmsr+1IUSMUyzOkRcvnVbX3ZYC6g9TDrDbFuFmRDq7PD4yaGbLKNQL6k2jnArV8hjYxh7hVhAZB6s9HDGpZA==}
     engines: {node: '>=0.10.0'}
 
-  react@19.0.0-rc-6f23540c7d-20240528:
-    resolution: {integrity: sha512-fo4drQwFP/R7ZJF5USwhn8YccEqOiH9C1ci5Jg7iM2+5pId8Bjcno+dDT/Cv5iYGmgwZzQIa+EwczD5IHEsmQA==}
+  react@19.0.0-rc-eb259b5d3b-20240605:
+    resolution: {integrity: sha512-Ez1rbLWt97LP31Us+kGIJOjf8iN+pxaIgi8r+8HJ+LnMEndi1bc9JShu4CVstRZDKk2UDkn7a4Ewhk7fdajizQ==}
     engines: {node: '>=0.10.0'}
 
   rollup@4.18.0:
@@ -516,8 +516,8 @@ packages:
     engines: {node: '>=18.0.0', npm: '>=8.0.0'}
     hasBin: true
 
-  scheduler@0.25.0-rc-6f23540c7d-20240528:
-    resolution: {integrity: sha512-5V2Aa+F16Qe+kT1zjwxPzBRoF6/xjw+LU9L2c1j2Dzw2GTiLEV8DxG3RAkRN8Lm5jlqbyK9ivRH3GGtipy+a6Q==}
+  scheduler@0.25.0-rc-eb259b5d3b-20240605:
+    resolution: {integrity: sha512-0uINpZJVamgAUdXJQ2kDSXY3c2LbrAFknJ0neXCzq7y1gfT03TCfxjH24gaTsSK84bdYpD6FOsbciYEfunjA1g==}
 
   semver@6.3.1:
     resolution: {integrity: sha512-BR7VvDCVHO+q2xBEWskxS6DJE1qRnb7DxzUrogb71CWoSficBxYsiAGd+Kl0mmq/MprG9yArRkyrQxTO6XjMzA==}
@@ -978,14 +978,14 @@ snapshots:
       picocolors: 1.0.1
       source-map-js: 1.2.0
 
-  react-dom@19.0.0-rc-6f23540c7d-20240528(react@19.0.0-rc-6f23540c7d-20240528):
+  react-dom@19.0.0-rc-eb259b5d3b-20240605(react@19.0.0-rc-eb259b5d3b-20240605):
     dependencies:
-      react: 19.0.0-rc-6f23540c7d-20240528
-      scheduler: 0.25.0-rc-6f23540c7d-20240528
+      react: 19.0.0-rc-eb259b5d3b-20240605
+      scheduler: 0.25.0-rc-eb259b5d3b-20240605
 
   react-refresh@0.14.2: {}
 
-  react@19.0.0-rc-6f23540c7d-20240528: {}
+  react@19.0.0-rc-eb259b5d3b-20240605: {}
 
   rollup@4.18.0:
     dependencies:
@@ -1009,7 +1009,7 @@ snapshots:
       '@rollup/rollup-win32-x64-msvc': 4.18.0
       fsevents: 2.3.3
 
-  scheduler@0.25.0-rc-6f23540c7d-20240528: {}
+  scheduler@0.25.0-rc-eb259b5d3b-20240605: {}
 
   semver@6.3.1: {}
 

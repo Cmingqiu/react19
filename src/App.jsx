@@ -1,3 +1,14 @@
+import TestRef from './components/TestRef';
+import TestUse from './components/TestUse';
+import TestRSC from './components/TestRSC';
+
 export default function App() {
-  return <>react 19</>;
+  return (
+    <>
+      <h1>react 19</h1>
+      {/* <TestRef /> */}
+      {/* <TestUse /> */}
+      <TestRSC />
+    </>
+  );
 }
