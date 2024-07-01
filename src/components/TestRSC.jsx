@@ -3,7 +3,7 @@
 export default function TestRSC() {
   return (
     <div>
-      <div>TestSrc</div>
+      <h2>TestSrc</h2>
     </div>
   );
 }

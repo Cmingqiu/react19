@@ -18,6 +18,7 @@ export default function TestUse() {
         change
       </button>
       <Suspense fallback={<div>加载中...</div>}>
+        {/* 19的新特性，无需TestCtx.Provider */}
         <TestCtx value={[color, setColor]}>
           <Child promise={promise} />
         </TestCtx>
