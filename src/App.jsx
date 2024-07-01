@@ -11,7 +11,7 @@ export default function App() {
       {/* <TestRef /> */}
       {/* <TestUse /> */}
       {/* <TestRSC /> */}
-      <TestMeta />
+      {/* <TestMeta /> */}
 
       <Login />
     </>
