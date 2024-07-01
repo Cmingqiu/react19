@@ -2,6 +2,7 @@ import TestRef from './components/TestRef';
 import TestUse from './components/TestUse';
 import TestRSC from './components/TestRSC';
 import TestMeta from './components/TestMeta';
+import Login from './views/Login';
 
 export default function App() {
   return (
@@ -11,6 +12,8 @@ export default function App() {
       {/* <TestUse /> */}
       {/* <TestRSC /> */}
       <TestMeta />
+
+      <Login />
     </>
   );
 }
