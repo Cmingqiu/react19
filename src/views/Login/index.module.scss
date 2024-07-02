@@ -1,4 +1,13 @@
 .loginForm {
   width: 500px;
   padding: 10px;
+
+  .captcha-row {
+    width: 120px;
+  }
+}
+
+.captchaImg {
+  width: 100px;
+  height: 34px;
 }

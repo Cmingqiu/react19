@@ -1,12 +1,34 @@
-import { Button, Checkbox, Form, Input } from 'antd';
+import { Button, Checkbox, Form, Input, message } from 'antd';
 import style from './index.module.scss';
+import { apiLogin, apiGetCaptcha } from '@/api/login';
+import { useEffect, useState } from 'react';
 
 export default function Login() {
+  const [captchaImg, setCaptchaImg] = useState('');
+  const [messageApi, contextHolder] = message.useMessage();
+
+  // 登录
   async function login(formData) {
-    // const res = await fetch('http://localhost:3000/login', formData);
-    // const data = await res.json();
-    console.log(data);
+    const [code, msg] = await apiLogin(formData);
+    code === 0 && messageApi.success(msg);
   }
+
+  // 请求验证码
+  async function getCaptcha() {
+    const blob = await apiGetCaptcha();
+    const url = URL.createObjectURL(blob);
+    setCaptchaImg(url);
+
+    /*  const reader = new FileReader();
+    reader.readAsDataURL(blob);
+    reader.onload = () => {
+      setCaptchaImg(reader.result);
+    }; */
+  }
+
+  useEffect(() => {
+    getCaptcha();
+  }, []);
 
   return (
     <div className={style.loginForm}>
@@ -24,6 +46,12 @@ export default function Login() {
         </Form.Item>
         <Form.Item name='password' label='密码'>
           <Input.Password />
+        </Form.Item>
+        <Form.Item name='code'>
+          <div className='captcha-row'>
+            <Input />
+            <img className={style.captchaImg} src={captchaImg} alt='' />
+          </div>
         </Form.Item>
         <Button type='primary' htmlType='submit'>
           登录
