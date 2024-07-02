@@ -1,7 +1,6 @@
 import { createMessage } from 'antd';
 
 const message = createMessage({});
-
 export default function http(options) {
   const defaultConfig = {
     method: 'GET',
@@ -16,8 +15,17 @@ export default function http(options) {
   return new Promise(function (resolve, reject) {
     fetch(`${import.meta.env.VITE_BASEURL}/${params.url}`, params)
       .then(res => {
-        if (res.headers.contentType.includes('application/json')) {
+        const { status, statusText, headers } = res;
+        const contentType = headers.contentType;
+
+        if (status !== 200) {
+          return;
+        }
+
+        if (contentType.includes('json')) {
           return res.json();
+        } else if (contentType.includes('json')) {
+          return res.blob();
         }
       })
       .then(data => {

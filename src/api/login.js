@@ -6,17 +6,10 @@ export function apiLogin(body) {
     url: '/login',
     method: 'POST',
     body
-  })
-    .then(res => {
-      console.log('2222 ', res);
-      return res.json();
-    })
-    .catch(err => {
-      console.error('xxx', err);
-    });
+  });
 }
 
 // 获取验证码
 export function apiGetCaptcha() {
-  return http({ url: '/login/captcha' }).then(res => res.blob());
+  return http({ url: '/login/captcha' });
 }
