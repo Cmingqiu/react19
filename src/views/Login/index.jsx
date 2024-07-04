@@ -1,16 +1,20 @@
-import { Button, Checkbox, Form, Input, message } from 'antd';
+import { useEffect, useState } from 'react';
+import { Button, Checkbox, Form, Input } from 'antd';
+
 import style from './index.module.scss';
 import { apiLogin, apiGetCaptcha } from '@/api/login';
-import { useEffect, useState } from 'react';
+import { message } from '@/hooks/useAntdPop';
 
 export default function Login() {
   const [captchaImg, setCaptchaImg] = useState('');
-  const [messageApi, contextHolder] = message.useMessage();
 
   // 登录
   async function login(formData) {
-    const [code, msg] = await apiLogin(formData);
-    code === 0 && messageApi.success(msg);
+    try {
+      const token = await apiLogin(formData);
+      localStorage.setItem('access_token', token);
+      message.success('登录成功');
+    } catch (error) {}
   }
 
   // 请求验证码
@@ -19,7 +23,8 @@ export default function Login() {
     const url = URL.createObjectURL(blob);
     setCaptchaImg(url);
 
-    /*  const reader = new FileReader();
+    /* 方式二
+      const reader = new FileReader();
     reader.readAsDataURL(blob);
     reader.onload = () => {
       setCaptchaImg(reader.result);
