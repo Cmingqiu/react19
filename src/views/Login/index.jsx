@@ -14,7 +14,9 @@ export default function Login() {
       const token = await apiLogin(formData);
       localStorage.setItem('access_token', token);
       message.success('登录成功');
-    } catch (error) {}
+    } catch (error) {
+      console.log(11, error);
+    }
   }
 
   // 请求验证码
