@@ -5,22 +5,21 @@ import TestMeta from './components/TestMeta';
 import Login from '@/views/Login';
 import List from '@/views/List';
 
+import {} from 'react';
+import { RouterProvider } from 'react-router-dom';
+
 import useAntdPop from '@/hooks/useAntdPop';
-import { useState } from 'react';
+import { router } from './router';
 
 export default function App() {
   useAntdPop();
-  const [token] = useState(localStorage.getItem('access_token'));
   return (
-    <>
-      <h1>react 19</h1>
+    <RouterProvider router={router}>
+      哈哈哈哈哈
       {/* <TestRef /> */}
       {/* <TestUse /> */}
       {/* <TestRSC /> */}
       {/* <TestMeta /> */}
-
-      <Login />
-      <List />
-    </>
+    </RouterProvider>
   );
 }

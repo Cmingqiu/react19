@@ -1,4 +1,5 @@
 import { message } from '@/hooks/useAntdPop';
+import { router } from '@/router';
 
 const RESPONSE_FUNCS = {
   json: ['json'], // 'application/json'
@@ -127,6 +128,7 @@ function validateStatus(code) {
       errMessage = '错误的请求';
       break;
     case 401:
+      router.navigate('/login');
       errMessage = '未授权，请重新登录';
       break;
     case 403:
