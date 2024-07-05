@@ -3,7 +3,15 @@ import { useEffect } from 'react';
 
 export default function List() {
   useEffect(() => {
-    apiGetList({ page: 1 });
+    async function api() {
+      try {
+        const token = await apiGetList({ page: 1 });
+        console.log(11, token);
+      } catch (error) {
+        console.log(22, error);
+      }
+    }
+    api();
   }, []);
   return (
     <>

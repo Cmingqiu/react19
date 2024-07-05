@@ -1,9 +1,14 @@
 import { message } from '@/hooks/useAntdPop';
 
+const RESPONSE_FUNCS = {
+  json: ['json'], // 'application/json'
+  blob: ['image', 'xls', 'doc'] // 'image/svg+xml; charset=utf-8'
+};
+
 export default function http(options) {
   const _params = dealParams(options);
   const { url, ...params } = _params;
-  let response;
+  let response, responseType;
 
   return new Promise(function (resolve, reject) {
     fetch(url, params)
@@ -16,29 +21,29 @@ export default function http(options) {
         if (isInvalidate) {
           localStorage.removeItem('access_token');
           message.error(errorText);
-          throw new Error(status);
+          throw { status }; //new Error(status);
         }
 
-        if (contentType.includes('json')) {
-          return res.json();
-        } else if (contentType.includes('image')) {
-          // 'image/svg+xml; charset=utf-8'
-          return res.blob();
+        responseType = findResponseTypeByContentType(contentType);
+        if (responseType) {
+          return res[responseType]();
+        } else {
+          throw {
+            status: 200,
+            statusText: new Error(`未找到【${contentType}】的处理函数，请完善`)
+          };
         }
       })
       .then(res => {
-        const contentType = response.headers.get('Content-Type') || '';
-        if (contentType.includes('json')) {
+        if (responseType === 'json') {
           const { code, msg, data } = res;
           const isError = catchCustomErrorCode(code, msg);
           !isError && resolve(data);
-          throw new Error(JSON.stringify(res));
+          throw { ...res, status: 200 }; //new Error(JSON.stringify(res));
         }
         resolve(res);
       })
-      .catch(err => {
-        reject(err);
-      });
+      .catch(reject); // {status, statusText, code, msg, data }
   });
 }
 
@@ -158,4 +163,16 @@ function validateStatus(code) {
       errMessage = `其他连接错误 --${code}`;
   }
   return [!valid, errMessage];
+}
+
+/**
+ * 根据contentType查找相应的responseType。
+ * @param {string} contentType - 要查找的内容类型。
+ * @returns {string|undefined} - 匹配的函数键，如果没有找到则为undefined。
+ */
+function findResponseTypeByContentType(contentType) {
+  const result = Object.entries(RESPONSE_FUNCS).find(([key, types]) =>
+    types.some(type => contentType.includes(type))
+  );
+  return result?.[0] ?? undefined;
 }
