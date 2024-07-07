@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button, Checkbox, Form, Input } from 'antd';
+import styled from 'styled-components';
 
-import style from './index.module.scss';
 import { apiLogin, apiGetCaptcha } from '@/api/login';
 import { message } from '@/hooks/useAntdPop';
 
 export default function Login() {
   const [captchaImg, setCaptchaImg] = useState('');
+  const navigate = useNavigate();
 
   // 登录
   async function login(formData) {
@@ -14,6 +16,7 @@ export default function Login() {
       const token = await apiLogin(formData);
       localStorage.setItem('access_token', token);
       message.success('登录成功');
+      navigate('/list');
     } catch (error) {
       console.log(11, error);
     }
@@ -38,7 +41,7 @@ export default function Login() {
   }, []);
 
   return (
-    <div className={style.loginForm}>
+    <LoginForm>
       <h2>登录</h2>
       <Form
         name='form'
@@ -56,14 +59,40 @@ export default function Login() {
         </Form.Item>
         <Form.Item name='code'>
           <div className='captcha-row'>
-            <Input />
-            <img className={style.captchaImg} src={captchaImg} alt='' />
+            <Input name='code' />
+            <img
+              className='captcha-img'
+              src={captchaImg}
+              alt=''
+              onClick={getCaptcha}
+            />
           </div>
         </Form.Item>
         <Button type='primary' htmlType='submit'>
           登录
         </Button>
       </Form>
-    </div>
+    </LoginForm>
   );
 }
+
+const LoginForm = styled.div`
+  width: 500px;
+  padding: 10px;
+  .captcha-row {
+    width: 500px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    input {
+      width: 120px;
+    }
+
+    .captcha-img {
+      width: 100px;
+      height: 34px;
+      cursor: pointer;
+      margin-left: 10px;
+    }
+  }
+`;
