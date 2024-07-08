@@ -10,16 +10,19 @@ import { RouterProvider } from 'react-router-dom';
 
 import useAntdPop from '@/hooks/useAntdPop';
 import { router } from './router';
+import AuthRouter from './router/AuthRouter';
 
 export default function App() {
   useAntdPop();
   return (
-    <RouterProvider router={router}>
-      哈哈哈哈哈
-      {/* <TestRef /> */}
-      {/* <TestUse /> */}
-      {/* <TestRSC /> */}
-      {/* <TestMeta /> */}
-    </RouterProvider>
+    <AuthRouter>
+      <RouterProvider router={router}>
+        哈哈哈哈哈 这里不展示
+        {/* <TestRef /> */}
+        {/* <TestUse /> */}
+        {/* <TestRSC /> */}
+        {/* <TestMeta /> */}
+      </RouterProvider>
+    </AuthRouter>
   );
 }

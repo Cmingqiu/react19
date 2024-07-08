@@ -19,6 +19,10 @@ export default function Login() {
       navigate('/list');
     } catch (error) {
       console.log(11, error);
+      if (code === -1001) {
+        //验证码错误
+        getCaptcha();
+      }
     }
   }
 
