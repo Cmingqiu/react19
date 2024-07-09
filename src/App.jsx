@@ -11,11 +11,13 @@ import { RouterProvider } from 'react-router-dom';
 import useAntdPop from '@/hooks/useAntdPop';
 import { router } from './router';
 import AuthRouter from './router/AuthRouter';
+import styled, { createGlobalStyle } from 'styled-components';
 
 export default function App() {
   useAntdPop();
   return (
     <AuthRouter>
+      <GlobalStyle />
       <RouterProvider router={router}>
         哈哈哈哈哈 这里不展示
         {/* <TestRef /> */}
@@ -26,3 +28,11 @@ export default function App() {
     </AuthRouter>
   );
 }
+
+const GlobalStyle = createGlobalStyle` 
+  *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+`;
