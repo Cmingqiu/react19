@@ -5,6 +5,7 @@ import styled from 'styled-components';
 
 import { apiLogin, apiGetCaptcha } from '@/api/login';
 import { message } from '@/hooks/useAntdPop';
+import { TOKEN_NAME } from '@/utils/const';
 
 export default function Login() {
   const [captchaImg, setCaptchaImg] = useState('');
@@ -14,7 +15,7 @@ export default function Login() {
   async function login(formData) {
     try {
       const token = await apiLogin(formData);
-      localStorage.setItem('access_token', token);
+      localStorage.setItem(TOKEN_NAME, token);
       message.success('登录成功');
       navigate('/list');
     } catch (error) {

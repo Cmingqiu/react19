@@ -1,5 +1,6 @@
 import { message } from '@/hooks/useAntdPop';
 import { router } from '@/router';
+import { TOKEN_NAME } from '@/utils/const';
 
 const RESPONSE_FUNCS = {
   json: ['json'], // 'application/json'
@@ -20,7 +21,7 @@ export default function http(options) {
 
         const [isInvalidate, errorText] = validateStatus(status);
         if (isInvalidate) {
-          localStorage.removeItem('access_token');
+          localStorage.removeItem(TOKEN_NAME);
           message.error(errorText);
           throw { status }; //new Error(status);
         }
@@ -69,7 +70,7 @@ function dealParams(options) {
     method: 'GET',
     headers: {
       'content-type': 'application/json',
-      'Access-Token': localStorage.getItem('access_token') || ''
+      'Access-Token': localStorage.getItem(TOKEN_NAME) || ''
     },
     credentials: 'include'
   };

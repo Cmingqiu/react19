@@ -1,5 +1,6 @@
 import { router } from '.';
 import { routes } from './routers';
+import { TOKEN_NAME } from '@/utils/const';
 
 /* 路由守卫组件 */
 export default function AuthRouter({ children }) {
@@ -9,7 +10,7 @@ export default function AuthRouter({ children }) {
   // 无需鉴权
   if (!matchedRouter?.meta?.requiresAuth) return children;
 
-  const token = localStorage.getItem('access_token');
+  const token = localStorage.getItem(TOKEN_NAME);
   if (!token) {
     router.navigate('/login');
     location.reload(); // hack 解决路由刷新时，页面不显示的问题，因为没有return组件，Navigate不能使用
