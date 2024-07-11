@@ -1,9 +1,10 @@
 import http from '.';
 
-// 查询列表
-export function apiGetList(body) {
+// 查询用户
+export function apiGetUser(body) {
+  const { id } = body;
   return http({
-    url: '/user',
+    url: `/user${id ? `/${id}` : ''}`,
     method: 'get',
     body
   });

@@ -10,6 +10,7 @@ import { TOKEN_NAME } from '@/utils/const';
 export default function Login() {
   const [captchaImg, setCaptchaImg] = useState('');
   const navigate = useNavigate();
+  const [form] = Form.useForm();
 
   // 登录
   async function login(formData) {
@@ -19,9 +20,10 @@ export default function Login() {
       message.success('登录成功');
       navigate('/list');
     } catch (error) {
-      console.log(11, error);
-      if (code === -1001) {
+      if (error.code === -1001) {
         //验证码错误
+        console.log(form);
+        form.setFieldsValue({ code: '' }); // TODO
         getCaptcha();
       }
     }
@@ -46,12 +48,13 @@ export default function Login() {
   }, []);
 
   return (
-    <LoginForm>
-      <h2>登录</h2>
+    <LoginPage>
       <Form
-        name='form'
+        name='loginForm'
+        form={form}
         labelCol={{ span: 4 }}
         wrapperCol={{ span: 20 }}
+        size='large'
         onFinish={login}>
         <Form.Item
           label='用户名'
@@ -59,10 +62,13 @@ export default function Login() {
           rules={[{ required: true, message: '请输入用户名' }]}>
           <Input />
         </Form.Item>
-        <Form.Item name='password' label='密码'>
+        <Form.Item
+          name='password'
+          label='密码'
+          rules={[{ required: true, message: '请输入密码' }]}>
           <Input.Password />
         </Form.Item>
-        <Form.Item name='code'>
+        <Form.Item name='code' wrapperCol={24}>
           <div className='captcha-row'>
             <Input name='code' />
             <img
@@ -73,19 +79,28 @@ export default function Login() {
             />
           </div>
         </Form.Item>
-        <Button type='primary' htmlType='submit'>
-          登录
-        </Button>
+        <Form.Item wrapperCol={24} className='captcha-row'>
+          <Button type='primary' htmlType='submit'>
+            登录
+          </Button>
+        </Form.Item>
       </Form>
-    </LoginForm>
+    </LoginPage>
   );
 }
 
-const LoginForm = styled.div`
-  width: 500px;
+const LoginPage = styled.div`
+  height: 100vh;
   padding: 10px;
+  background-color: aliceblue;
+  form {
+    width: 400px;
+    position: fixed;
+    top: 50%;
+    right: 30px;
+    transform: translateY(-50%);
+  }
   .captcha-row {
-    width: 500px;
     display: flex;
     justify-content: flex-end;
     align-items: center;

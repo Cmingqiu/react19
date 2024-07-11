@@ -2,8 +2,6 @@ import TestRef from './components/TestRef';
 import TestUse from './components/TestUse';
 import TestRSC from './components/TestRSC';
 import TestMeta from './components/TestMeta';
-import Login from '@/views/Login';
-import List from '@/views/List';
 
 import {} from 'react';
 import { RouterProvider } from 'react-router-dom';
@@ -34,5 +32,8 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+  }
+  html,body,#root{
+    height: 100%;
   }
 `;

@@ -25,8 +25,8 @@ export const routes = [
       },
       {
         path: '/list',
-        element: lazyLoad(lazy(() => import('@/views/List/index'))),
-        meta: { title: '列表页', requiresAuth: true }
+        element: lazyLoad(lazy(() => import('@/views/UserList/index'))),
+        meta: { title: '用户列表页', requiresAuth: true }
       }
     ]
   },

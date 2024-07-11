@@ -7,6 +7,7 @@ export default function AuthRouter({ children }) {
   const basename = router.basename;
   const { pathname } = router.state.location; // useLocation(); <Navigate to='/login' replace />; 只能在路由组件中使用
   const matchedRouter = searchRouter(basename, pathname, routes);
+  document.title = matchedRouter?.meta?.title ?? '';
   // 无需鉴权
   if (!matchedRouter?.meta?.requiresAuth) return children;
 
@@ -27,7 +28,7 @@ export default function AuthRouter({ children }) {
   */
 }
 
-/**
+/** TODO
  * 根据路径查找路由
  */
 function searchRouter(basename, pathname, routes) {
