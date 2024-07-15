@@ -1,12 +1,12 @@
 import { router } from '.';
-import { routeArray } from './routers';
+import { routes } from './routers';
 import { TOKEN_NAME } from '@/utils/const';
 
 /* 路由守卫组件 */
 export default function AuthRouter({ children }) {
   const basename = router.basename; // '/'
   const { pathname } = router.state.location; // useLocation(); <Navigate to='/login' replace />; 只能在路由组件中使用
-  const matchedRouter = searchRouter(pathname, routeArray);
+  const matchedRouter = searchRoute(pathname, routes);
   document.title = matchedRouter?.meta?.title ?? '';
   // 无需鉴权
   if (!matchedRouter?.meta?.requiresAuth) return children;
@@ -28,7 +28,7 @@ export default function AuthRouter({ children }) {
   */
 }
 
-/**
+/** dfs
  * 根据路径查找路由 TODO
  */
 function searchRouter(pathname, routes) {
@@ -37,11 +37,25 @@ function searchRouter(pathname, routes) {
   return findRouteByPath(routes);
 
   function findRouteByPath(routes) {
+    let result = {};
     for (let route of routes) {
       const children = route.children || [];
-      console.log(route.path);
       if (route.path === pathname) return route;
-      if (children.length) return findRouteByPath(children);
+      if (children.length) {
+        const res = findRouteByPath(children);
+        Object.keys(res).length && (result = res);
+      }
     }
+    return result;
   }
 }
+
+// bfs查找路由
+const searchRoute = (path, routes = []) => {
+  const queue = [...routes];
+  while (queue.length) {
+    const route = queue.shift();
+    if (route.path === path) return route;
+    if (route.children) queue.push(...route.children);
+  }
+};
