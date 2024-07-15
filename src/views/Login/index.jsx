@@ -18,7 +18,7 @@ export default function Login() {
       const token = await apiLogin(formData);
       localStorage.setItem(TOKEN_NAME, token);
       message.success('登录成功');
-      navigate('/list');
+      navigate('/');
     } catch (error) {
       if (error.code === -1001) {
         //验证码错误

@@ -1,5 +1,5 @@
 import { Suspense, useContext, useRef, useState, use } from 'react';
-import { TestCtx } from '../context/index';
+import { TestCtx } from './context/index';
 
 export default function TestUse() {
   const [color, setColor] = useState('red');

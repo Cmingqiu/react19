@@ -1,12 +1,12 @@
 import { router } from '.';
-import { routes } from './routers';
+import { routeArray } from './routers';
 import { TOKEN_NAME } from '@/utils/const';
 
 /* 路由守卫组件 */
 export default function AuthRouter({ children }) {
-  const basename = router.basename;
+  const basename = router.basename; // '/'
   const { pathname } = router.state.location; // useLocation(); <Navigate to='/login' replace />; 只能在路由组件中使用
-  const matchedRouter = searchRouter(basename, pathname, routes);
+  const matchedRouter = searchRouter(pathname, routeArray);
   document.title = matchedRouter?.meta?.title ?? '';
   // 无需鉴权
   if (!matchedRouter?.meta?.requiresAuth) return children;
@@ -28,11 +28,20 @@ export default function AuthRouter({ children }) {
   */
 }
 
-/** TODO
- * 根据路径查找路由
+/**
+ * 根据路径查找路由 TODO
  */
-function searchRouter(basename, pathname, routes) {
-  pathname = pathname.replace(new RegExp(basename, ''), '');
-  const router = routes.find(({ path }) => path === pathname);
-  return router;
+function searchRouter(pathname, routes) {
+  // pathname = pathname.replace(new RegExp(basename, ''), '');
+
+  return findRouteByPath(routes);
+
+  function findRouteByPath(routes) {
+    for (let route of routes) {
+      const children = route.children || [];
+      console.log(route.path);
+      if (route.path === pathname) return route;
+      if (children.length) return findRouteByPath(children);
+    }
+  }
 }

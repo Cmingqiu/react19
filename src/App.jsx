@@ -1,8 +1,3 @@
-import TestRef from './components/TestRef';
-import TestUse from './components/TestUse';
-import TestRSC from './components/TestRSC';
-import TestMeta from './components/TestMeta';
-
 import {} from 'react';
 import { RouterProvider } from 'react-router-dom';
 
@@ -14,15 +9,10 @@ import styled, { createGlobalStyle } from 'styled-components';
 export default function App() {
   useAntdPop();
   return (
+    // AuthRouter组件只会在初始化执行一次
     <AuthRouter>
       <GlobalStyle />
-      <RouterProvider router={router}>
-        哈哈哈哈哈 这里不展示
-        {/* <TestRef /> */}
-        {/* <TestUse /> */}
-        {/* <TestRSC /> */}
-        {/* <TestMeta /> */}
-      </RouterProvider>
+      <RouterProvider router={router}>哈哈哈哈哈 这里不展示</RouterProvider>
     </AuthRouter>
   );
 }

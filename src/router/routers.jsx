@@ -1,12 +1,12 @@
-import { lazy } from 'react';
-import { Navigate } from 'react-router-dom';
-
-import Layout from '@/layout';
-import Home from '@/views/Home';
 import Login from '@/views/Login';
 import NOT_FOUND from '@/views/NOT_FOUND';
 
-import lazyLoad from './lazyLoad';
+export const routeArray = [];
+// 导入所有业务路由
+const matchRoutes = import.meta.glob('./modules/*.jsx', { eager: true });
+Object.entries(matchRoutes).forEach(([path, module]) => {
+  routeArray.push(...module.default);
+});
 
 export const routes = [
   {
@@ -14,21 +14,6 @@ export const routes = [
     element: <Login />,
     meta: { title: '登录', requiresAuth: false }
   },
-  {
-    element: <Layout />,
-    meta: { title: 'Dashboard' },
-    children: [
-      {
-        path: '/',
-        element: <Home />,
-        meta: { title: '首页', requiresAuth: true }
-      },
-      {
-        path: '/list',
-        element: lazyLoad(lazy(() => import('@/views/UserList/index'))),
-        meta: { title: '用户列表页', requiresAuth: true }
-      }
-    ]
-  },
+  ...routeArray,
   { path: '*', element: <NOT_FOUND />, meta: { title: '404' } }
 ];
