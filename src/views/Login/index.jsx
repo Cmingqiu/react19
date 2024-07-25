@@ -20,9 +20,8 @@ export default function Login() {
       message.success('登录成功');
       navigate('/');
     } catch (error) {
-      if (error.code === -1001) {
+      if (error.code !== 0) {
         //验证码错误
-        console.log(form);
         form.setFieldsValue({ code: '' }); // TODO
         getCaptcha();
       }

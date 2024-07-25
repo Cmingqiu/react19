@@ -8,7 +8,7 @@ const listRouter = [
     element: <Layout />,
     children: [
       {
-        path: '/list',
+        path: '/user-list',
         element: lazyLoad(lazy(() => import('@/views/UserList'))),
         meta: { title: '用户列表页', requiresAuth: true }
       }

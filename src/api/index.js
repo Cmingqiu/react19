@@ -125,6 +125,9 @@ function validateStatus(code) {
     case 200:
       valid = true;
       break;
+    case 201:
+      valid = true;
+      break;
     case 400:
       errMessage = '错误的请求';
       break;
