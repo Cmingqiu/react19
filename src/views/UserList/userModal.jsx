@@ -1,7 +1,7 @@
 import { Button, Form, Input } from 'antd';
 import { forwardRef, useImperativeHandle } from 'react';
 
-const UserModal = forwardRef(({}, ref) => {
+const UserModal = forwardRef(({ row, type }, ref) => {
   const [form] = Form.useForm();
 
   useImperativeHandle(ref, () => ({

@@ -24,7 +24,7 @@ export function apiGetUser(id) {
 }
 
 export function apiUpdateUser(body) {
-  return http({ url: `/user/${body.id}`, body, method: 'PATCH' });
+  return http({ url: `/user/${body.id}`, body, method: 'POST' });
 }
 
 export function apiDeleteUser(id) {

@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import { apiLogin, apiGetCaptcha } from '@/api/login';
 import { message } from '@/hooks/useAntdPop';
 import { TOKEN_NAME } from '@/utils/const';
+import logoImg from '@/images/react.png';
 
 export default function Login() {
   const [captchaImg, setCaptchaImg] = useState('');
@@ -48,6 +49,7 @@ export default function Login() {
 
   return (
     <LoginPage>
+      <img className='logo' src={logoImg} alt='' srcSet='' />
       <Form
         name='loginForm'
         form={form}
@@ -92,12 +94,19 @@ const LoginPage = styled.div`
   height: 100vh;
   padding: 10px;
   background-color: aliceblue;
+  .logo {
+    width: 100px;
+  }
   form {
     width: 400px;
     position: fixed;
     top: 50%;
     right: 30px;
     transform: translateY(-50%);
+    padding: 35px 20px 10px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px 3px rgba(0, 0, 0, 0.5);
+    box-sizing: content-box;
   }
   .captcha-row {
     display: flex;

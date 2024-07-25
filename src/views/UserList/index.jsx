@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
-import { Button, Table, Modal } from 'antd';
+import { Button, Table, Modal, Popconfirm } from 'antd';
 
 import { apiGetUser } from '@/api/user';
 import UserModal from './userModal';
@@ -9,11 +9,44 @@ import useUserModal from './hooks/useUserModal';
 
 export default function UserList() {
   const [list, setList] = useState('');
-  const { modal, setModal, modalRef, ok, onCancel } = useUserModal(getUsers);
+  const currentRow = useRef(); // 当前操作的行数据
+  const {
+    modal,
+    setModal,
+    modalRef,
+    ok,
+    onCancel,
+    afterOpenChange,
+    editUser,
+    deleteUser
+  } = useUserModal(currentRow, getUsers);
   const columns = [
     { title: '姓名', dataIndex: 'name' },
+    { title: '密码', dataIndex: 'password' },
     { title: '年龄', dataIndex: 'age' },
-    { title: '角色', dataIndex: 'roles' }
+    { title: '角色', dataIndex: 'roles' },
+    {
+      title: '操作',
+      dataIndex: 'operation',
+      align: 'center',
+      render: (_, record) => {
+        return (
+          <>
+            <Button type='link' onClick={editUser(record)}>
+              编辑
+            </Button>
+            <Popconfirm
+              title='确定删除用户吗?'
+              onConfirm={deleteUser(record)}
+              okText='Yes'
+              cancelText='No'>
+              {' '}
+              <Button type='link'>删除</Button>
+            </Popconfirm>
+          </>
+        );
+      }
+    }
   ];
 
   async function getUsers(id) {
@@ -45,8 +78,15 @@ export default function UserList() {
         title={`${modal.modalType === 1 ? '新增' : '编辑'}用户`}
         open={modal.modalShow}
         onOk={ok}
-        onCancel={onCancel}>
-        <UserModal ref={modalRef} />
+        onCancel={onCancel}
+        afterOpenChange={afterOpenChange}>
+        {modal.modalShow && (
+          <UserModal
+            ref={modalRef}
+            row={currentRow.current}
+            type={modal.modalType}
+          />
+        )}
       </Modal>
     </UserListWrap>
   );

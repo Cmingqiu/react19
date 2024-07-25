@@ -3,18 +3,41 @@ import { useRef, useState } from 'react';
 import { message } from '@/hooks/useAntdPop';
 import { apiAddUser, apiUpdateUser, apiDeleteUser } from '@/api/user';
 
-export default getUsers => {
+export default (currentRow, getUsers) => {
   const [modal, setModal] = useState({
     modalShow: false,
-    modalType: 'add'
+    modalType: 1 // 新增1  编辑2
   });
   const modalRef = useRef(null);
 
+  // 编辑
+  function editUser(data) {
+    return () => {
+      currentRow.current = data;
+      setModal({ modalType: 2, modalShow: true });
+    };
+  }
+  // 删除
+  function deleteUser(data) {
+    return async () => {
+      await apiDeleteUser(data._id);
+      message.success('删除成功');
+      getUsers();
+    };
+  }
+
   async function ok() {
     const formData = modalRef.current.form.getFieldsValue();
-    const res = await apiAddUser(formData);
-    console.log('ok： ', res, getUsers);
-    message.success('添加成功');
+    if (modal.modalType === 2) {
+      formData.id = currentRow.current._id;
+    }
+    const methods = {
+      1: apiAddUser,
+      2: apiUpdateUser
+    };
+    const res = await methods['' + modal.modalType](formData);
+    console.log('ok： ', res);
+    message.success(`${modal.modalType === 1 ? '添加' : '修改'}成功`);
     onCancel();
     getUsers();
   }
@@ -22,5 +45,23 @@ export default getUsers => {
     setModal({ ...modal, modalShow: false });
   }
 
-  return { modal, setModal, modalRef, ok, onCancel };
+  function afterOpenChange(visible) {
+    if (visible && modal.modalType === 2) {
+      const { name, password, age, roles } = currentRow.current;
+      modalRef.current.form.setFieldsValue({ name, password, age, roles });
+    } else {
+      modalRef.current.form.resetFields();
+    }
+  }
+
+  return {
+    modal,
+    setModal,
+    modalRef,
+    ok,
+    onCancel,
+    afterOpenChange,
+    editUser,
+    deleteUser
+  };
 };
