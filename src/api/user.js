@@ -19,8 +19,8 @@ export function apiAddUser(body) {
 /**
  *查询所有/指定用户
  */
-export function apiGetUser(id) {
-  return http({ url: `/user${id !== undefined ? `/${id}` : ''}` });
+export function apiGetUser(body) {
+  return http({ url: `/user`, body });
 }
 
 export function apiUpdateUser(body) {

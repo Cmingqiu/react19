@@ -1,5 +1,6 @@
-import { Button, Form, Input } from 'antd';
+import { Select, Form, Input } from 'antd';
 import { forwardRef, useImperativeHandle } from 'react';
+import { rolesOptions } from './UserSearchForm';
 
 const UserModal = forwardRef(({ row, type }, ref) => {
   const [form] = Form.useForm();
@@ -32,7 +33,7 @@ const UserModal = forwardRef(({ row, type }, ref) => {
           <Input />
         </Form.Item>
         <Form.Item wrapperCol={24} name='roles' label='角色'>
-          <Input />
+          <Select options={rolesOptions} allowClear />
         </Form.Item>
       </Form>
     </>

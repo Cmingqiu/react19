@@ -1,15 +1,17 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { Button, Table, Modal, Popconfirm } from 'antd';
+import styled from 'styled-components';
 
 import { apiGetUser } from '@/api/user';
-import UserModal from './userModal';
-import styled from 'styled-components';
 import useUserModal from './hooks/useUserModal';
+import UserModal from './UserModal';
+import UserSearchForm from './UserSearchForm';
 
 export default function UserList() {
   const [list, setList] = useState('');
   const currentRow = useRef(); // 当前操作的行数据
+  const searchForm = useRef(null); // 筛选条件表单
   const {
     modal,
     setModal,
@@ -49,6 +51,16 @@ export default function UserList() {
     }
   ];
 
+  // 搜索
+  const search = useCallback(() => {
+    const formData = searchForm.current.form.getFieldsValue();
+    Object.keys(formData).forEach(key => {
+      !formData[key] && delete formData[key];
+    });
+    console.log(formData);
+    getUsers(formData);
+  });
+
   async function getUsers(id) {
     try {
       const users = await apiGetUser(id);
@@ -57,20 +69,23 @@ export default function UserList() {
   }
 
   useEffect(() => {
-    getUsers();
+    search();
   }, []);
 
   return (
     <UserListWrap>
       <h1>用户列表页</h1>
       <div className='row'>
-        <Button onClick={() => setModal({ modalType: 1, modalShow: true })}>
-          新增用户
-        </Button>
+        <UserSearchForm search={search} ref={searchForm} />
 
-        <Button type='primary' onClick={() => getUsers()}>
-          查询
-        </Button>
+        <div>
+          <Button onClick={() => setModal({ modalType: 1, modalShow: true })}>
+            新增用户
+          </Button>
+          <Button type='primary' onClick={search}>
+            查询
+          </Button>
+        </div>
       </div>
       <Table dataSource={list} columns={columns} />
 
@@ -97,7 +112,7 @@ const UserListWrap = styled.div`
   .row {
     padding: 10px;
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     button + button {
       margin-left: 10px;
     }
