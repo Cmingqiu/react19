@@ -4,9 +4,9 @@ import { Input, Form, Select } from 'antd';
 import styled from 'styled-components';
 
 export const rolesOptions = [
-  { label: '超级管理员', value: 'super-admin' },
-  { label: '管理员', value: 'admin' },
-  { label: '成员', value: 'member' }
+  { label: '超级管理员', value: 'super-admin', color: '#f50' },
+  { label: '管理员', value: 'admin', color: '#2db7f5' },
+  { label: '成员', value: 'member', color: '#108ee9' }
 ];
 
 const UserSearchForm = forwardRef(({ search }, ref) => {
@@ -24,6 +24,7 @@ const UserSearchForm = forwardRef(({ search }, ref) => {
         <Form.Item label='角色' name='roles'>
           <Select
             className='role-select'
+            mode='multiple'
             options={rolesOptions}
             onChange={search}
             allowClear

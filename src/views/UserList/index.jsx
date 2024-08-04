@@ -1,12 +1,12 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { Fragment, useCallback, useEffect, useRef, useState } from 'react';
 
-import { Button, Table, Modal, Popconfirm } from 'antd';
+import { Button, Table, Modal, Popconfirm, Tag } from 'antd';
 import styled from 'styled-components';
 
 import { apiGetUser } from '@/api/user';
 import useUserModal from './hooks/useUserModal';
 import UserModal from './UserModal';
-import UserSearchForm from './UserSearchForm';
+import UserSearchForm, { rolesOptions } from './UserSearchForm';
 
 export default function UserList() {
   const [list, setList] = useState('');
@@ -26,7 +26,22 @@ export default function UserList() {
     { title: '姓名', dataIndex: 'name' },
     { title: '密码', dataIndex: 'password' },
     { title: '年龄', dataIndex: 'age' },
-    { title: '角色', dataIndex: 'roles' },
+    {
+      title: '角色',
+      dataIndex: 'roles',
+      render(_, record) {
+        return record.roles.map((role, idx) => {
+          const roleOpt = rolesOptions.find(opt => opt.value === role);
+          if (roleOpt) {
+            return (
+              <Fragment key={idx}>
+                <Tag color={roleOpt.color}> {roleOpt.label}</Tag>
+              </Fragment>
+            );
+          }
+        });
+      }
+    },
     {
       title: '操作',
       dataIndex: 'operation',

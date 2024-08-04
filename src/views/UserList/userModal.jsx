@@ -33,7 +33,7 @@ const UserModal = forwardRef(({ row, type }, ref) => {
           <Input />
         </Form.Item>
         <Form.Item wrapperCol={24} name='roles' label='角色'>
-          <Select options={rolesOptions} allowClear />
+          <Select options={rolesOptions} mode='multiple' allowClear />
         </Form.Item>
       </Form>
     </>

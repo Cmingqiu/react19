@@ -37,6 +37,7 @@ export default (currentRow, getUsers) => {
         1: apiAddUser,
         2: apiUpdateUser
       };
+      formData.age = +formData.age;
       const res = await methods['' + modal.modalType](formData);
       console.log('ok： ', res);
       message.success(`${modal.modalType === 1 ? '添加' : '修改'}成功`);
