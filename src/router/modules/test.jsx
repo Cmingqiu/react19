@@ -6,6 +6,7 @@ import lazyLoad from '../lazyLoad';
 
 const testRouter = [
   {
+    order: 3,
     element: <Layout />,
     children: [
       {

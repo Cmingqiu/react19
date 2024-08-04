@@ -7,6 +7,8 @@ const matchRoutes = import.meta.glob('./modules/*.jsx', { eager: true });
 Object.entries(matchRoutes).forEach(([path, module]) => {
   routeArray.push(...module.default);
 });
+// 根据order升序
+routeArray.sort((a, b) => a.order - b.order);
 
 export const routes = [
   {

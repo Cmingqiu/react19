@@ -5,6 +5,7 @@ import lazyLoad from '../lazyLoad';
 
 const listRouter = [
   {
+    order:2,
     element: <Layout />,
     children: [
       {
