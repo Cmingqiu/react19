@@ -21,7 +21,6 @@ export default function http(options) {
 
         const [isInvalidate, errorText] = validateStatus(status);
         if (isInvalidate) {
-          localStorage.removeItem(TOKEN_NAME);
           message.error(errorText);
           throw { status }; //new Error(status);
         }
@@ -132,6 +131,7 @@ function validateStatus(code) {
       errMessage = '错误的请求';
       break;
     case 401:
+      localStorage.removeItem(TOKEN_NAME);
       router.navigate('/login');
       errMessage = '未授权，请重新登录';
       break;
