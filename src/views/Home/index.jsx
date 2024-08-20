@@ -4,12 +4,15 @@ import { Outlet } from 'react-router-dom';
 import * as tts from '@diffusionstudio/vits-web';
 import styled from 'styled-components';
 import { Button } from 'antd';
+import { AtInput } from '@/components/AtInput';
 
 // 通过 tts.stored() 方法查看已经存储在本地的模型列表，或者通过 tts.remove() 和 tts.flush() 方法删除不再需要的模型。
 // await tts.voices()
 
 export default function Home() {
   const [loading, setLoading] = useState(false);
+
+  const [user, setUser] = useState([]);
 
   useEffect(() => {
     (async () => {
@@ -48,12 +51,29 @@ export default function Home() {
     }
   }
 
+  const fetchData = Promise.resolve([{ name: '1', id: 0 }]);
+
   return (
     <HomeWrap>
       <h1>Home</h1>
       <Button loading={loading} disabled={loading} onClick={transform}>
         文本到语音转换
       </Button>
+
+      <hr />
+      {user}
+      <AtInput
+        height={150}
+        onRequest={async () => {
+          const data = await fetchData;
+          console.log(data);
+          return data;
+        }}
+        onChange={(content, selected) => {
+          setUser(selected);
+        }}
+      />
+
       <Outlet />
     </HomeWrap>
   );
