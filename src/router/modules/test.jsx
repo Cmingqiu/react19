@@ -37,6 +37,11 @@ const testRouter = [
             path: '/test/testMeta',
             meta: { title: 'testMeta' },
             element: lazyLoad(lazy(() => import('@/views/Test/TestMeta')))
+          },
+          {
+            path: 'testFlushSync', // 可以省略父路径
+            meta: { title: 'testFlushSync' },
+            element: lazyLoad(lazy(() => import('@/views/Test/TestFlushSync')))
           }
         ]
       }
