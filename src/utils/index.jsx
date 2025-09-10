@@ -24,7 +24,7 @@ export const handleRoute = (data, level = 1, parentPath = '') => {
   for (let item of data) {
     const { path, children, element } = item;
     item.level = level;
-    // console.log(path, `..${element}`, level);
+    console.log(path, `..${element}`, level);
     // 拼接完整路径
     const fullPath = /* parentPath ? `${parentPath}/${path}` : */ path;
     // 安全检查：确保path存在且为字符串
@@ -34,7 +34,9 @@ export const handleRoute = (data, level = 1, parentPath = '') => {
       if (!element) {
         item.element = <Outlet />;
       } else {
-        item.element = lazyLoad(lazy(modules[`..${element}`]));
+        item.element = lazyLoad(
+          lazy(() => import(`..${element}`)) /*或者 modules[`..${element}`] */
+        );
       }
     }
     // 递归处理子路由并传递父路径
