@@ -1,13 +1,42 @@
-import {} from 'react';
+import { useEffect, useState } from 'react';
 import { RouterProvider } from 'react-router-dom';
 
 import useAntdPop from '@/hooks/useAntdPop';
 import { router } from './router';
 import AuthRouter from './router/AuthRouter';
 import styled, { createGlobalStyle } from 'styled-components';
+import { fetchMenus } from './api/mock';
+import { TOKEN_NAME } from '@/utils/const';
+import { useMenuStore } from '@/store/useMenuStore';
+import { handleRoute } from '@/utils';
 
 export default function App() {
   useAntdPop();
+  const menus = useMenuStore(store => store.menus);
+  const setMenus = useMenuStore(store => store.setMenus);
+  const [isLoading, setLoading] = useState(false);
+  console.log('app  ');
+
+  useEffect(() => {
+    //todo: 静态路由不需要查询，比如/login /404 /dashboard
+
+    if (!menus || menus.length === 0) {
+      setLoading(true);
+      fetchMenus(localStorage.getItem(TOKEN_NAME))
+        .then(res => {
+          setMenus(res);
+          const newRoues = handleRoute([...res]);
+          console.log('fetchMenus: ', res, newRoues);
+          router.routes.at(-1).children = newRoues;
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    }
+  }, [menus]);
+
+  if (isLoading) return '加载中...';
+
   return (
     // AuthRouter组件只会在初始化执行一次
     <AuthRouter>

@@ -5,7 +5,7 @@ import styled from 'styled-components';
 
 import { apiGetUser } from '@/api/user';
 import useUserModal from './hooks/useUserModal';
-import UserModal from './UserModal';
+import UserModal from './userModal';
 import UserSearchForm, { rolesOptions } from './UserSearchForm';
 
 export default function UserList() {

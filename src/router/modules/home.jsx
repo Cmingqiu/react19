@@ -11,7 +11,7 @@ const homeRouter = [
     children: [
       {
         path: '/',
-        element: lazyLoad(lazy(() => import('@/views/Home'))),
+        element: lazyLoad(lazy(() => import('@/views/home'))),
         meta: { title: '首页', requiresAuth: false },
         children: [
           {

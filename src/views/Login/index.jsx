@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import { apiLogin, apiGetCaptcha } from '@/api/login';
 import { message } from '@/hooks/useAntdPop';
 import { TOKEN_NAME } from '@/utils/const';
+import { mockFetch } from '@/utils';
 import logoImg from '@/images/react.png';
 
 export default function Login() {
@@ -16,7 +17,8 @@ export default function Login() {
   // 登录
   async function login(formData) {
     try {
-      const token = await apiLogin(formData);
+      const token = await mockFetch(formData.username);
+      // const token = await apiLogin(formData);
       localStorage.setItem(TOKEN_NAME, token);
       message.success('登录成功');
       navigate('/');

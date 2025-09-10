@@ -4,6 +4,8 @@ import { Menu } from 'antd';
 
 import { routeArray } from '@/router/routers';
 import logoImg from '@/images/react.png';
+import { useMenuStore } from '@/store/useMenuStore';
+import { staticMenus } from '@/router/routers';
 
 const Logo = () => {
   return (
@@ -19,23 +21,28 @@ export default function LayoutSide() {
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
-  setMenuList(routeArray, menuList);
-  function setMenuList(routes, menuList) {
+  const menus = useMenuStore(state => state.menus);
+  setMenuList([...staticMenus, ...menus], menuList);
+  console.log('menuList: ', menuList);
+  function setMenuList(routes, menuList, parentPath = '') {
     routes.forEach(route => {
-      const { path, meta, children = [] } = route;
+      const { path, meta = {}, children = [] } = route;
       if (path) {
-        // 有path属性，则是非Layout组件
+        // 有path属性，则是业务组件非Layout组件
         const { title, icon } = meta;
         const menu = {
-          key: path,
+          key:
+            !parentPath || path.includes(parentPath)
+              ? path
+              : parentPath + '/' + path,
           label: title,
           icon
         };
         menuList.push(menu);
         if (children.length)
-          setMenuList(children, menu.children || (menu.children = []));
+          setMenuList(children, menu.children || (menu.children = []), path);
       } else {
-        setMenuList(children, menuList);
+        setMenuList(children, menuList, '');
       }
     });
   }

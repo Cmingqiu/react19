@@ -5,12 +5,12 @@ import lazyLoad from '../lazyLoad';
 
 const listRouter = [
   {
-    order:2,
+    order: 2,
     element: <Layout />,
     children: [
       {
         path: '/user-list',
-        element: lazyLoad(lazy(() => import('@/views/UserList'))),
+        element: lazyLoad(lazy(() => import('@/views/user-list'))),
         meta: { title: '用户列表页', requiresAuth: true }
       }
     ]
